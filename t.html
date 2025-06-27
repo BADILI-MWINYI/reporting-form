@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gender-Based Reporting Platform</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f5f5f5;
+    }
+    header {
+      background: #6b46c1;
+      color: white;
+      padding: 10px 10px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 5px 0;
+      font-size: 22px;
+    }
+    nav {
+      background: #5432a8;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 16px;
+    }
+    nav .logo {
+      color: white;
+      font-weight: bold;
+    }
+    nav .menu {
+      display: flex;
+      gap: 15px;
+    }
+    nav .menu a {
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+    }
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .hamburger span {
+      height: 3px;
+      background: white;
+      margin: 4px 0;
+      width: 25px;
+    }
+    @media (max-width: 768px) {
+      .menu {
+        display: none;
+        flex-direction: column;
+        background: #5432a8;
+        position: absolute;
+        top: 50px;
+        right: 0;
+        width: 200px;
+        padding: 10px;
+      }
+      .menu.active { display: flex; }
+      .hamburger { display: flex; }
+    }
+    #dynamic-text {
+      display: inline-block;
+      min-width: 280px;
+      height: 26px;
+      font-weight: bold;
+      font-size: 18px;
+      font-family: 'Courier New', Courier, monospace;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+    .slider {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      overflow: hidden;
+    }
+    .slide {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      top: 0;
+      left: 0;
+      display: none;
+      flex-direction: column;
+      justify-content: flex-end;
+      align-items: center;
+      transition: opacity 0.8s ease-in-out;
+    }
+    .slide.active { display: flex; }
+    .slide img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: 1;
+    }
+    .description {
+      position: relative;
+      z-index: 2;
+      background: rgba(255, 255, 255, 0.85);
+      padding: 10px 20px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      max-width: 90%;
+      text-align: center;
+      color: #333;
+      font-size: 14px;
+    }
+    .quick-buttons-wrapper {
+      background-color: #fff;
+      padding: 20px 10px;
+      margin-top: 10px;
+      text-align: center;
+    }
+    .quick-buttons {
+      display: inline-flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .quick-buttons a {
+      padding: 10px 16px;
+      background-color: #6b46c1;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+      font-size: 14px;
+      min-width: 120px;
+      text-align: center;
+    }
+    footer {
+      background: #333;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+    @media (min-width: 768px) {
+      .slider { height: 400px; }
+      .description { font-size: 16px; max-width: 70%; }
+      #dynamic-text { font-size: 20px; height: 28px; }
+      .quick-buttons a { font-size: 16px; padding: 12px 20px; }
+    }
+    @media (min-width: 1024px) {
+      .slider { height: 500px; }
+    }
+  </style>
+</head>
+<body>
+
+<nav role="navigation" aria-label="Main Navigation">
+  <div class="logo">GenderSafe</div>
+  <div class="menu" id="navMenu">
+    <a href="#">Home</a>
+    <a href="#report-form">Report</a>
+    <a href="#">Help</a>
+    <a href="#">Rights</a>
+  </div>
+  <div class="hamburger" onclick="toggleMenu()" aria-label="Toggle Menu" aria-expanded="false" aria-controls="navMenu">
+    <span></span><span></span><span></span>
+  </div>
+</nav>
+
+<header>
+  <h1>THE LIKONI GENDER BASED VIOLENCE REPORTING PLATFORM</h1>
+  <p><span id="dynamic-text"><span id="typed-text"></span></span></p>
+</header>
+
+<div class="slider" onmouseover="pauseSlider()" onmouseout="resumeSlider()">
+  <div class="slide active">
+    <img src="image1.jpg" alt="Slide 1">
+    <div class="description">Support survivors by reporting any witnessed or experienced gender-based violence confidentially.</div>
+  </div>
+  <div class="slide">
+    <img src="image2.jpg" alt="Slide 2">
+    <div class="description">Together we can create safe communities free from fear, stigma, and abuse.</div>
+  </div>
+  <div class="slide">
+    <img src="image3.jpg" alt="Slide 3">
+    <div class="description">Education and awareness are key to preventing gender-based violence. Learn your rights today.</div>
+  </div>
+</div>
+
+<div class="quick-buttons-wrapper">
+  <div class="quick-buttons">
+    <a href="#report-form">Report Now</a>
+    <a href="#">Get Help</a>
+    <a href="#">Know Your Rights</a>
+  </div>
+</div>
+
+<section id="report-form" style="background:#fff; padding: 40px 15px;">
+  <h2 style="text-align:center; color:#6b46c1;">Report Gender-Based Violence</h2>
+  <form aria-label="GBV Reporting Form" style="max-width:600px; margin:auto;" onsubmit="return validateForm(event)">
+    <label for="name">Your Name (Optional):</label><br/>
+    <input type="text" id="name" name="name" aria-label="Name" style="width:100%; padding:10px; margin-bottom:15px;" />
+
+    <label for="gender">Your Gender:</label><br/>
+    <select id="gender" name="gender" required aria-label="Gender" style="width:100%; padding:10px; margin-bottom:15px;">
+      <option value="">Select...</option>
+      <option value="female">Female</option>
+      <option value="male">Male</option>
+      <option value="nonbinary">Non-binary</option>
+      <option value="prefer_not_say">Prefer not to say</option>
+    </select>
+
+    <label for="incidentDate">Date of Incident:</label><br/>
+    <input type="date" id="incidentDate" name="incidentDate" required aria-label="Date of Incident" style="width:100%; padding:10px; margin-bottom:15px;" />
+
+    <label for="location">Location:</label><br/>
+    <input type="text" id="location" name="location" required aria-label="Location" style="width:100%; padding:10px; margin-bottom:15px;" />
+
+    <label for="details">Description:</label><br/>
+    <textarea id="details" name="details" required aria-label="Description of the incident" rows="5" style="width:100%; padding:10px; margin-bottom:15px;"></textarea>
+
+    <div style="margin-bottom:15px;">
+      <label style="display:block; margin-bottom:5px;"><input type="checkbox" name="anonymous" aria-label="Report anonymously" /> Report anonymously</label>
+      <label style="display:block;"><input type="checkbox" name="followup" aria-label="Allow follow-up" /> Allow us to follow up with you</label>
+    </div>
+
+    <button type="submit" style="padding:12px 30px; background:#6b46c1; color:white; border:none; border-radius:5px;">Submit Report</button>
+    <p id="confirmation" style="color:green; display:none; margin-top:15px;">Thank you. Your report has been submitted.</p>
+  </form>
+</section>
+
+<footer>
+  <p>&copy; 2025 GenderSafe | Privacy Policy | Terms</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    const menu = document.getElementById('navMenu');
+    const expanded = menu.classList.toggle('active');
+    document.querySelector('.hamburger').setAttribute('aria-expanded', expanded);
+  }
+  const slides = document.querySelectorAll('.slide');
+  let index = 0;
+  let interval = setInterval(showSlide, 4000);
+
+  function showSlide() {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+    index = (index + 1) % slides.length;
+  }
+
+  function pauseSlider() { clearInterval(interval); }
+  function resumeSlider() { interval = setInterval(showSlide, 4000); }
+
+  const phrases = [
+    "Your Voice Matters",
+    "Speak Up Against Violence",
+    "Together We Can End GBV",
+    "Stand for Justice and Dignity"
+  ];
+
+  const textElement = document.getElementById("typed-text");
+  let phraseIndex = 0;
+  let letterIndex = 0;
+  let isDeleting = false;
+
+  function typeEffect() {
+    const currentPhrase = phrases[phraseIndex];
+    if (isDeleting) {
+      letterIndex--;
+    } else {
+      letterIndex++;
+    }
+    textElement.textContent = currentPhrase.substring(0, letterIndex);
+
+    if (!isDeleting && letterIndex === currentPhrase.length) {
+      isDeleting = true;
+      setTimeout(typeEffect, 1800);
+    } else if (isDeleting && letterIndex === 0) {
+      isDeleting = false;
+      phraseIndex = (phraseIndex + 1) % phrases.length;
+      setTimeout(typeEffect, 300);
+    } else {
+      setTimeout(typeEffect, isDeleting ? 50 : 100);
+    }
+  }
+  typeEffect();
+
+  function validateForm(event) {
+    event.preventDefault();
+    document.getElementById("confirmation").style.display = "block";
+    setTimeout(() => {
+      document.getElementById("confirmation").style.display = "none";
+    }, 5000);
+    return false;
+  }
+</script>
+</body>
+</html>
